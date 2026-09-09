@@ -1,0 +1,17 @@
+{
+  "name": "genpark-hyperloglog-cardinality-estimator-skill",
+  "version": "1.0.0",
+  "description": "Autonomous Agent HyperLogLog (HLL) Probabilistic Distinct Elements Cardinality Estimator",
+  "entry_point": "client.py",
+  "example": "example_usage.py",
+  "mcp_server": "mcp_server.py",
+  "dependencies": [],
+  "tags": [
+    "genpark-skill",
+    "agentic-ai",
+    "data-structures",
+    "hyperloglog",
+    "cardinality-estimation",
+    "streaming-analytics"
+  ]
+}
