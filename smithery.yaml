@@ -1,0 +1,7 @@
+name: genpark-hyperloglog-cardinality-estimator-skill
+description: Pure Python 64-register HyperLogLog cardinality estimator for high-speed streaming distinct query estimation
+version: 1.0.1
+entrypoint: mcp_server.py
+command: python
+args:
+  - mcp_server.py
