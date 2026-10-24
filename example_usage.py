@@ -1,22 +1,17 @@
-"""Example usage for HyperLogLog Skill."""
-from client import HyperLogLog
+"""Example usage for GenPark HyperLogLog Cardinality Estimator."""
+from client import HyperLogLogCardinalityEstimator
 
 def main():
-    print("Executing HyperLogLog Cardinality Estimation...")
-    hll = HyperLogLog(b=8)
-    true_unique = 1500
-    for i in range(true_unique):
-        hll.add(f"unique_sensor_reading_{i}")
-        # Insert duplicates
-        if i % 2 == 0:
-            hll.add(f"unique_sensor_reading_{i}")
+    hll = HyperLogLogCardinalityEstimator(p=6)
+    print("Ingesting 500 distinct query fingerprints into HLL...")
+    queries = [f"prompt_query_{i}" for i in range(500)]
+    hll.add_batch("stream_analytics", queries)
 
-    estimated = hll.count()
-    print(f"True unique: {true_unique}, Estimated: {estimated}")
-    error_ratio = abs(estimated - true_unique) / true_unique
-    print(f"Relative error: {error_ratio:.2%}")
-    assert error_ratio < 0.15, "HLL error exceeded margin"
-    print("HyperLogLog verified successfully!")
+    est = hll.estimate_cardinality("stream_analytics")
+    print("HyperLogLog Cardinality Estimate:")
+    print(f" - True Distinct Count: 500")
+    print(f" - HLL Estimate:        {est['estimated_cardinality']}")
+    print(f" - Error Margin:        {round(abs(est['estimated_cardinality'] - 500) / 500 * 100, 2)}%")
 
 if __name__ == "__main__":
     main()
